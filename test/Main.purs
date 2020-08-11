@@ -53,6 +53,7 @@ main = do
         describe "json parser" do
           it "should parse null" do
             Right JNull `shouldEqual` (runParser "null" parseNull)
+            Right JNull `shouldEqual` (runParser "null" parseJson)
             true `shouldEqual` isLeft (runParser "foo" parseNull)
           it "should parse boolean" do
             Right (JBoolean true) `shouldEqual` (runParser "true" parseBoolean)

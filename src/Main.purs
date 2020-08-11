@@ -8,6 +8,7 @@ import Data.Char.Unicode (isAlphaNum)
 import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Show (genericShow)
 import Data.List (List)
+import Data.Maybe (Maybe)
 import Data.String.CodeUnits (fromCharArray, singleton)
 import Data.Traversable (sequence)
 import Data.Tuple (Tuple(..))
@@ -42,12 +43,15 @@ parseBoolean =
 negativeSign :: forall s. StringLike s => Parser s String
 negativeSign = string "-"
 
+addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
+addMaybe a b = (+) <$> a <*> b
+
 integerWhen0 :: forall s. StringLike s => Parser s String
 integerWhen0 = append <$> (option "" negativeSign) <*> (string "0")
 
-oneToNine = [ '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+oneToNine = [ '1', '2', '3', '4', '5', '6', '7', '8', '9' ] :: Array Char
 
-digits = [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ]
+digits = [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ] :: Array Char
 
 integerWhenNot0 :: forall s. StringLike s => Parser s String
 integerWhenNot0 =
